@@ -1,8 +1,12 @@
 import { useState } from 'react';
-import './App.css'; // Vite default, but we'll mostly use tailwind
+import './App.css';
+import { Guides } from './components/Guides';
+import Settings from './components/Settings';
+import { Editor } from './components/Editor';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'editor' | 'guides' | 'settings'>('editor');
+  const [activeGuide, setActiveGuide] = useState<'instruction' | 'knowledge' | 'training'>('instruction');
 
   return (
     <div className="flex h-screen w-screen bg-gray-900 text-gray-100 overflow-hidden">
@@ -14,21 +18,27 @@ function App() {
           </h1>
         </div>
         <nav className="flex-1 p-4 space-y-2">
-          <button 
+          <button
             onClick={() => setActiveTab('editor')}
-            className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${activeTab === 'editor' ? 'bg-blue-600 text-white' : 'hover:bg-gray-700 text-gray-300'}`}
+            className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
+              activeTab === 'editor' ? 'bg-blue-600 text-white' : 'hover:bg-gray-700 text-gray-300'
+            }`}
           >
             ✏️ Editor
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab('guides')}
-            className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${activeTab === 'guides' ? 'bg-blue-600 text-white' : 'hover:bg-gray-700 text-gray-300'}`}
+            className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
+              activeTab === 'guides' ? 'bg-blue-600 text-white' : 'hover:bg-gray-700 text-gray-300'
+            }`}
           >
-            📚 How-To Guides
+            📚 How‑To Guides
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab('settings')}
-            className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${activeTab === 'settings' ? 'bg-blue-600 text-white' : 'hover:bg-gray-700 text-gray-300'}`}
+            className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
+              activeTab === 'settings' ? 'bg-blue-600 text-white' : 'hover:bg-gray-700 text-gray-300'
+            }`}
           >
             ⚙️ Settings
           </button>
@@ -38,23 +48,50 @@ function App() {
         </div>
       </div>
 
-      {/* Main Content Area */}
+      {/* Main Content */}
       <div className="flex-1 flex flex-col h-full overflow-hidden bg-gray-900">
+        {/* Editor */}
         {activeTab === 'editor' && (
-          <div className="flex-1 flex items-center justify-center text-gray-500">
-            Editor Component Placeholder
+          <div className="flex-1 w-full h-full">
+            <Editor />
           </div>
         )}
+
+        {/* Guides */}
         {activeTab === 'guides' && (
-          <div className="flex-1 flex items-center justify-center text-gray-500">
-            How-To Guides Component Placeholder
-          </div>
+          <>
+            <div className="flex border-b border-gray-700 bg-gray-800">
+              <button
+                onClick={() => setActiveGuide('instruction')}
+                className={`px-4 py-2 ${
+                  activeGuide === 'instruction' ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-700'
+                }`}
+              >
+                📄 Instructions
+              </button>
+              <button
+                onClick={() => setActiveGuide('knowledge')}
+                className={`px-4 py-2 ${
+                  activeGuide === 'knowledge' ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-700'
+                }`}
+              >
+                📚 Knowledge
+              </button>
+              <button
+                onClick={() => setActiveGuide('training')}
+                className={`px-4 py-2 ${
+                  activeGuide === 'training' ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-700'
+                }`}
+              >
+                🤖 Training Files
+              </button>
+            </div>
+            <Guides activeGuide={activeGuide} />
+          </>
         )}
-        {activeTab === 'settings' && (
-          <div className="flex-1 flex items-center justify-center text-gray-500">
-            Settings Component Placeholder
-          </div>
-        )}
+
+        {/* Settings */}
+        {activeTab === 'settings' && <Settings />}
       </div>
     </div>
   );
