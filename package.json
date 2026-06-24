@@ -1,0 +1,30 @@
+{
+  "name": "ai-doc-writer",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+"main": "src/main.ts",
+"scripts": {
+  "dev": "vite",
+  "build": "tsc && vite build",
+  "preview": "vite preview",
+  "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
+  "electron:build": "npm run build && electron-builder"
+},
+  "devDependencies": {
+    "autoprefixer": "^10.5.1",
+    "concurrently": "^10.0.3",
+    "electron": "^42.5.0",
+    "electron-builder": "^26.15.3",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.1",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.0",
+    "wait-on": "^9.0.10"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "openai": "^6.44.0",
+    "react-markdown": "^10.1.0"
+  }
+}
